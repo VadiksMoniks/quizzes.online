@@ -12,7 +12,7 @@
 <body>
     <form method="POST">
         <?php
-           
+           //gasgas
             //unset($_COOKIE[$_GET['n']]);
             $fileName = "quizzes_tasks/" . $_GET['n'] . ".txt";
 

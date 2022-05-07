@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="nav-bar">
+            <ul class="nav-list">
+                <li>Home</li>
+                <li>
+                    Portfolio
+                    <ul>
+                        <li>Web Design</li>
+                        <li>Web Development</li>
+                        <li>Illustrations</li>
+                    </ul>
+                </li>
+                <li>About</li>
+                <li>Blog</li>
+                <li>
+                    Join Us
+                    <ul>
+                        <li class="last" id="In">Sign In</li>
+                        <li class="last" id="Up">Sing Up</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class='popup1'>
+            <form class="form " id="form">
+                <div class="form__group">
+                    <button class="popup_close1">close</button>
+                </div>
+                <div class="form__group">
+                    <input type="text" placeholder="Username" class="form__input" />
+                </div>
+
+                <div class="form__group">
+                    <input type="email" placeholder="Email" class="form__input" />
+                </div>
+
+                <div class="form__group">
+                    <input type="password" placeholder="Password" class="form__input" />
+                </div>
+
+                <button class="btn" type="button">Register</button>
+            </form>
+        </div>
+
+        <div class='popup2'>
+            <form class="form " id="form">
+                <div class="form__group">
+                    <button class="popup_close2">close</button>
+                </div>
+                <div class="form__group">
+                    <input type="email" placeholder="Email" class="form__input" />
+                </div>
+
+                <div class="form__group">
+                    <input type="password" placeholder="Password" class="form__input" />
+                </div>
+
+                <button class="btn" type="button">Register</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+        //$('.red').css('background','url([url]http://mirgif.com/6/45.gif)');
+            $('#In').click(function(){
+            $('.popup1').css('visibility' ,'visible');
+            $('.popup1').css('opacity','1');
+            })
+        }); 
+        $(document).ready(function(){
+        //$('.red').css('background','url([url]http://mirgif.com/6/45.gif)');
+        $('.popup_close1').click(function(){
+            $('.popup1').css('visibility' ,'hidden');
+            $('.popup1').css('opacity','0');
+            })
+            
+            $('#Up').click(function(){
+            $('.popup2').css('visibility' ,'visible');
+            $('.popup2').css('opacity','1');
+            })
+        }); 
+        $(document).ready(function(){
+        //$('.red').css('background','url([url]http://mirgif.com/6/45.gif)');
+        $('.popup_close2').click(function(){
+            $('.popup2').css('visibility' ,'hidden');
+            $('.popup2').css('opacity','0');
+            })
+        });
+</script>
+</body>
+</html>

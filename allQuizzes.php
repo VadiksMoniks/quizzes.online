@@ -8,27 +8,31 @@
     $dbname = "quizonline";
     $dsn = 'mysql:host='.$host.';dbname='.$dbname;
     $pdo = new PDO($dsn, $userLog, $passwordUser);
-    
-    if(!empty($_GET['t'])){
-        $sql = $pdo->prepare("SELECT `quizname` FROM `quizzes` WHERE `type` = ?");
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+    if(!empty($_GET['category'])){
+        $sql = $pdo->prepare("SELECT `quizname` FROM `quiz` WHERE `category` = ?");
         $sql->execute([$_GET['t']]);
-    }
-    else{
-        $sql = $pdo->prepare("SELECT `quizname` FROM `quizzes`");
-        $sql->execute();
-    }
 
-    if($sql->rowCount()>0){
+        if($sql->rowCount()>0){
 
             for($i=0; $i<$sql->rowCount(); $i++){
                 $result = $sql->fetch();
-                echo "<a href=quiz.php?n=".basename($result->quizname);
+                echo "<a href=quiz.php?n=".$result->quizname.">.$result->quizname.</a>";
             }
+        }
+        else{
+            echo "No such category";
+        }
+
     }
     else{
-        echo "No such category";
+        $sql = $pdo->prepare("SELECT `quizname` FROM `quiz`");
+        $sql->execute();
+        for($i=0; $i<$sql->rowCount(); $i++){
+            $result = $sql->fetch();
+            echo "<a href=quiz.php?n=".$result->quizname.">.$result->quizname.</a>";
+        }
     }
-
 
 ?>
     

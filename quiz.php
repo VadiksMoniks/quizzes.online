@@ -1,8 +1,10 @@
 <?php
+    require 'classes/User.php';
+    session_start();
     if(!isset($_COOKIE[$_GET['n']])){
         setcookie($_GET['n'], ' ');
     }
-
+    setcookie("a", "", time() - 3600);
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,7 +44,9 @@
                 } else {
                     echo '<button name="done">send</button>';
                 }
-            } else {
+            } 
+
+            else {
                 //переадреация на страницу 404
                 echo "This test doesn't exist... YET";
             }
@@ -82,6 +86,10 @@
         }
             echo "</br>";
             echo "Mark: ".$mark;
+            if(!empty($_SESSION['user'])){
+                $user = new User();
+                $user->getXp($mark);
+            }
  
     }
 

@@ -28,6 +28,7 @@
             $result = $sql->fetch();
             if($result==NULL){
                 return "No such user";
+                $_SESSION['message']=='No such user';
             }
 
             else{
@@ -40,6 +41,7 @@
                 }
                 else{
                     return "Wrong login or password";
+                    $_SESSION['message']=='Wrong login or password';
                 }
             }
         }
@@ -66,6 +68,7 @@
             }
             else{
                 return "Such user is allready exist";
+                $_SESSION['message']=='Such user is allready exist';
             }
         }
 
@@ -104,7 +107,7 @@
     }
 
         //$user = new User();
-        //$user->signUp('test', 'test@test.com', 'test');*/
+        //$user->signUp('test', 'test@test.com', 'test');
         //echo $user->signIn('test@test.com', 'tet');
         //echo $_SESSION['user'];
         //echo $user->signOut();

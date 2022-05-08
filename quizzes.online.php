@@ -41,8 +41,8 @@
                         echo'Join Us';
                         echo'<ul>';
                         echo '<form action="autorize.php" method="GET">';
-                        echo'<li class="last popup_open" ><button class="btn" name="sI" value="In">Sign In</button></li>';
-                        echo'<li class="last popup_open"><button class="btn" name="sU">Sign Up</button></li>';
+                        echo'<li class="last popup_open" ><button class="btn" name="s" value="In">Sign In</button></li>';
+                        echo'<li class="last popup_open"><button class="btn" name="s" value="Up">Sign Up</button></li>';
                         echo "</form>";
                         echo'</ul>';  
                         echo'</li>';

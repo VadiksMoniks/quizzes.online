@@ -31,6 +31,9 @@
                     }
                 });
             }
+            else{
+                $('#quizList').fadeOut();
+            }
         });
         $(document).on('click', 'li', function(){
             $('#quizName').val($(this).text());
@@ -58,7 +61,9 @@
 
             for($i=0; $i<$sql->rowCount(); $i++){
                 $result = $sql->fetch();
+                echo '<div>';
                 echo "<a href=quiz.php?n=".$result->quizname.">.$result->quizname.</a>";
+                echo '</div>';
             }
         }
         else{
@@ -71,7 +76,9 @@
         $sql->execute();
         for($i=0; $i<$sql->rowCount(); $i++){
             $result = $sql->fetch();
+            echo '<div>';
             echo "<a href=quiz.php?n=".$result->quizname.">.$result->quizname.</a>";
+            echo '</div>';
         }
     }
 

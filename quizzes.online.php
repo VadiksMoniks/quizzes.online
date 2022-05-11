@@ -57,7 +57,7 @@
                         echo'<ul>';
                         echo' <li class="last">Personal cabinet</li>';
                         echo' <li class="last">Settings</li>';
-                        echo' <a href="#"><li class="last">'.$user->signOut().'</li></a>';
+                        //echo' <a href="#"><li class="last">'.$user->signOut().'</li></a>';
                         echo'</ul>';
                         echo'</li>';
                     }

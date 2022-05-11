@@ -5,6 +5,9 @@
         setcookie($_GET['n'], ' ');
     }
     setcookie("a", "", time() - 3600);
+    //if(!isset($_COOKIE['currentXP'])){
+      //  setcookie('currentXP', '');
+   // }
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +18,7 @@
     <form method="POST">
         <?php
            //gasgas
-            //unset($_COOKIE[$_GET['n']]);
+            //setcookie($_GET['n'], '', -3600);
             $fileName = "quizzes_tasks/" . $_GET['n'] . ".txt";
 
             if (file_exists($fileName)) {
@@ -89,6 +92,8 @@
             if(!empty($_SESSION['user'])){
                 $user = new User();
                 $user->getXp($mark);
+                echo $_COOKIE['currentXP'];
+                var_dump($_COOKIE);
             }
  
     }

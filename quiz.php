@@ -4,7 +4,6 @@
     if(!isset($_COOKIE[$_GET['n']])){
         setcookie($_GET['n'], ' ');
     }
-    setcookie("a", "", time() - 3600);
     //if(!isset($_COOKIE['currentXP'])){
       //  setcookie('currentXP', '');
    // }
@@ -13,12 +12,16 @@
 <html>
 <head>
 <tittle></tittle>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  
 </head>
 <body>
     <form method="POST">
         <?php
-           //gasgas
-            //setcookie($_GET['n'], '', -3600);
+           // setcookie($_GET['n'], '', -3600);
             $fileName = "quizzes_tasks/" . $_GET['n'] . ".txt";
 
             if (file_exists($fileName)) {
@@ -45,7 +48,7 @@
                     echo "You've allready passed this test";
                     //recomendations for tests like this
                 } else {
-                    echo '<button name="done">send</button>';
+                    echo '<button name="done" id="complete">send</button>';
                 }
             } 
 
@@ -55,12 +58,13 @@
             }
         ?>
     </form>
-</body>
+<div id="results">
+    <button id="close">close</button>
 
 <?php
     if(array_key_exists('done', $_POST) && $_COOKIE[$_GET['n']]===' '){
         array_pop($_POST);
-        setcookie($_GET['n'], 'done');
+        setcookie($_GET['n'], 'done', time() + (3600 * 24 * 30));
         $answersFileName = "quizzes_answers/".$_GET['n'].".txt";
 
         $handle = fopen($answersFileName, 'r');
@@ -92,16 +96,53 @@
             if(!empty($_SESSION['user'])){
                 $user = new User();
                 $user->getXp($mark);
-                echo $_COOKIE['currentXP'];
-                var_dump($_COOKIE);
+                //echo $_COOKIE['currentXP'];
+                //var_dump($_COOKIE);
             }
  
     }
 
- /*
+ /* 
     нужно после віполнения теста записівать его ву кукки, оценку записіваать в пользователя и еще делать проверку на регистрацию
      а так же добавить попап для подтверждения отправки(тут можно через js сделать проверку кол-ва введенных ответов)
  */
-
-
 ?>
+   
+        <button class="evaluate" value="like">Like</button>
+        <button class="evaluate" value="dislike">Dislike</button>
+    
+</div>
+
+<script>
+    $(document).ready(function(){
+        $(document).on('#complete','click',function(){
+            $('results').css('visibility','visible');
+            $('results').css('opacity','1');
+        });
+
+        $(document).on('#close','click',function(){
+            $('results').css('visibility','hidden');
+            $('results').css('opacity','0');
+        });
+
+        $(document).on('click', '.evaluate', function(){
+            var query = $(this).val();
+            var name = '<?=$_GET['n']?>';
+            console.log(name);
+            console.log(query);
+            if(query!=''){
+                $.ajax({
+                    url:'rate.php',
+                    method:'POST',
+                    data:{query:query,name:name},
+                    success:function(data){
+                        
+                        $('#quizList').fadeIn();
+                        $('#quizList').html(data);
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>

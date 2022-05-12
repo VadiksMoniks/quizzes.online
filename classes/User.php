@@ -99,8 +99,8 @@
 
                 if($_COOKIE['currentXP']>$xpToNextLvL){
                     setcookie('currentXP', $_COOKIE['currentXP']-$xpToNextLvL);
-                    $sql=$pdo->prepare("UPDATE `users` WHERE `username` = ? SET `userlvl` = ?");
-                    $sql->execute([$_SESSION['user'], $result->userlvl+1]);
+                    $sql=$pdo->prepare("UPDATE `users` SET `userlvl` = ? WHERE `username` = ? ");
+                    $sql->execute([$result->userlvl+1,$_SESSION['user']]);
                 }
             }
         }

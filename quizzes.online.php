@@ -22,17 +22,17 @@
     <div class="header">
         <div class="nav-bar">
             <ul class="nav-list">
-                <li>Home</li>
-                <li>
-                    Portfolio
+                <a href = "quizzes.online.php"><li>Quizzes Online</li></a>
+                <a href="allQuizzes.php"><li>
+                    All Quizzes
                     <ul>
                         <li>Web Design</li>
                         <li>Web Development</li>
                         <li>Illustrations</li>
                     </ul>
-                </li>
-                <li>About</li>
-                <li>Blog</li>
+                </li></a>
+                <a href = "random.php"><li>Random Quiz</li></a>
+                <!--<li>Blog</li>-->
                 <?php
                 
                     if(empty($_SESSION['user'])){

@@ -104,6 +104,47 @@
                 }
             }
         }
+
+        public function setNewPass($userName, $oldPass, $newPass){
+            $pdo = $this->connection();
+            $sql = $pdo->prepare('SELECT `userpassword` FROM `users` WHERE `username` = ?');
+            $sql->execute([$userName]);
+            $result = $sql->fetch();
+            if($result!=0){
+                if(password_verify($oldPass, $result->userpassword)==1){
+                    $sql = $pdo->prepare("UPDATE `users` SET `userpassword` = ? WHERE `username` = ?");
+                    $sql->execute([$newPass, $userName]);
+                    return 'Password wsa changed';
+                }
+                else{
+                    return 'Wrong old password';
+                }
+            }
+        }
+
+        public function setNewEmail($userName, $oldEmail, $newEmail){
+            $pdo = $this->connection();
+            $sql = $pdo->prepare('SELECT `userlogin` FROM `users` WHERE `username` = ?');
+            $sql->execute([$userName]);
+            $result = $sql->fetch();
+            if($result!=0){
+                $sql = $pdo->prepare("UPDATE `users` SET `userlogin` = ? WHERE `username` = ?");
+                $sql->execute([$newEmail, $userName]);
+                return 'E-mail was changed';
+            }
+        }
+
+        public function setNewUsername($userName, $newUsername){
+            $pdo = $this->connection();
+            $sql = $pdo->prepare('SELECT `userlogin` FROM `users` WHERE `username` = ?');
+            $sql->execute([$userName]);
+            $result = $sql->fetch();
+            if($result!=0){
+                $sql = $pdo->prepare("UPDATE `users` SET `userlogin` = ? WHERE `username` = ?");
+                $sql->execute([$newUsername, $userName]);
+                return 'Username was changed';
+            }
+        }
     }
 
         //$user = new User();

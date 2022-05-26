@@ -1,10 +1,14 @@
 <?php
-    if(!session_id()){
-        session_start();
+
+    require 'connection.php';
+    require 'classes/User.php';
+
+    session_start();
+
+    if(array_key_exists('user', $_SESSION)==0){
+        header('Location:quizzes.online.php');
     }
-    //var_dump($_SESSION);
-    require_once 'classes/User.php';
-    //fgdfh
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +23,7 @@
   crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="header">
+<div class="header">
         <div class="nav-bar">
             <ul class="nav-list">
                 <a href = "quizzes.online.php"><li>Quizzes Online</li></a>
@@ -49,7 +53,7 @@
                         echo'<ul>';
                         echo '<form action="autorize.php" method="GET">';
                         echo'<a href="autorize.php?s=In"><li class="last">Sign In</li></a>';
-                        echo'<a href="autorize.php?s=Up"><li class="last">Sign Up</li></a>';
+                        echo'<a href="autorize.php?s=Up"><li class="last">Sign In</li></a>';
                         echo "</form>";
                         echo'</ul>';  
                         echo'</li>';
@@ -57,7 +61,7 @@
                     }
                     else if(!empty($_SESSION['user'])){
 
-                        //$user = new User();
+                       // $user = new User();
 
                         echo'<li>';
                         echo $_SESSION['user'];
@@ -72,11 +76,19 @@
             </ul>
         </div>
     </div>
-    <div class="main-content">
-        
-    </div>
+
+<p>
+<?php
+    
+    $sql = $pdo->prepare('SELECT `userlvl` FROM `users` WHERE `username` = ?');
+    $sql->execute([$_SESSION['user']]);
+    $result = $sql->fetch();
+    $xpToNextLvL = $result->userlvl;
+    $xpToNextLvL = ($xpToNextLvL+1)*20;
+    echo "Your current xp:".$_COOKIE['currentXP']."/".$xpToNextLvL;
+    echo $_SESSION['user'];
+    echo $result->userlvl;
+?>
+</p>
 </body>
 </html>
-<?php
-
-?>

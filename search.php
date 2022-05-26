@@ -16,11 +16,11 @@
 
     if(count($result)!=0){
         foreach($result as $name){
-            $output.='<a href="quiz.php?n='.$name->quizname.'"><li>'.$name->quizname.'</li></a>';
+            $output.='<a href="quiz.php?n='.$name->quizname.'"><li style="font-size:15px;">'.$name->quizname.'</li></a>';
         }
     }
     else{
-        $output.='<li>No quizes found</li>';
+        $output.='<li style="font-size:15px;">No quizes found</li>';
     }
 
     $output.'</ul>';

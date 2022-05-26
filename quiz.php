@@ -12,6 +12,7 @@
 <html>
 <head>
 <tittle></tittle>
+<link rel="stylesheet" href="./styles/quizPage.css">
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -19,7 +20,10 @@
   
 </head>
 <body>
-    <form method="POST">
+    <a href="allQuizzes.php">Back</a>
+    <div id="questionsBlock">
+        <h2><?php echo $_GET['n']?></h2>
+        <form method="POST">
         <?php
            // setcookie($_GET['n'], '', -3600);
             $fileName = "quizzes_tasks/" . $_GET['n'] . ".txt";
@@ -39,9 +43,9 @@
                         if (preg_match('/[\d]{1}[\s]{2}/', $qANDa[$i][$j]) == true) {
                             echo "<p>" . $qANDa[$i][$j] . "</p>";
                         } else {
-                            echo '<input type="radio" value="' . $j . '" name="a_' . $i . '" id="q"' . $j . '><label for="q' . $j . '" required>' . $qANDa[$i][$j] . '</label></br>';
+                            echo '<input type="radio" value="' . $j . '" name="a_' . $i . '" id="q"' . $j . '><label for="q' . $j . '">' . $qANDa[$i][$j] . '</label></br>';
                         }
-                    }
+                    }  
                 }
                 echo '</br>';
                 if (!empty($_COOKIE[$_GET['n']]) && $_COOKIE[$_GET['n']]==='done') {
@@ -57,7 +61,8 @@
                 echo "This test doesn't exist... YET";
             }
         ?>
-    </form>
+     </form>
+    </div>
 <div id="results">
     <button id="close">close</button>
 
@@ -91,8 +96,28 @@
                 }
             }
         }
+
+        echo "</br>";
+        
+        $percantageCorrect= ($mark*100)/count($answers);
+
+        if($percantageCorrect>70 && $percantageCorrect<100){
+            echo 'Keep it up! You answered correctly for '.$percantageCorrect.' of all questions';
+        }
+
+        else if($percantageCorrect>85 && $percantageCorrect<100){
+            echo 'Well done! You answered correctly for '.$percantageCorrect.' of all questions';
+        }
+
+        else if($percantageCorrect==100){
+            echo 'AMAZING!!! You answered correctly for ALL questions';
+        }
+            echo "</br>";
             echo "</br>";
             echo "Mark: ".$mark;
+            echo "</br>";
+
+
             if(!empty($_SESSION['user'])){
                 $user = new User();
                 $user->getXp($mark);
@@ -102,10 +127,6 @@
  
     }
 
- /* 
-    нужно после віполнения теста записівать его ву кукки, оценку записіваать в пользователя и еще делать проверку на регистрацию
-     а так же добавить попап для подтверждения отправки(тут можно через js сделать проверку кол-ва введенных ответов)
- */
 ?>
    
         <button class="evaluate" value="like">Like</button>
@@ -115,17 +136,18 @@
 
 <script>
     $(document).ready(function(){
-        $(document).on('#complete','click',function(){
-            $('results').css('visibility','visible');
-            $('results').css('opacity','1');
-        });
+       /* $(document).on('click', '#complete',function(){
+            $('#results').css('visibility','visible');
+            $('#results').css('opacity','1');
+        });*/
 
-        $(document).on('#close','click',function(){
-            $('results').css('visibility','hidden');
-            $('results').css('opacity','0');
-        });
+   /*     $(document).on('click', '#close',function(){
+            $('#results').css('visibility','hidden');
+            $('#results').css('opacity','0');
+        });*/
 
         $(document).on('click', '.evaluate', function(){
+            $('.btn').setAttribute('disabled', true);
             var query = $(this).val();
             var name = '<?=$_GET['n']?>';
             console.log(name);
@@ -145,4 +167,5 @@
         });
     });
 </script>
+</div>
 </body>
